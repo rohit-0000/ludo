@@ -1,0 +1,5 @@
+import { COLORS } from '../game/constants'
+
+export default function PlayerPanel({ players, currentIdx, rankings }) {
+  return <aside className="player-panel"><div className="panel-label">At the table</div><div className="player-list">{players.map((player, index) => { const info = COLORS[player.color]; return <div key={player.color} className={`player-row ${index === currentIdx && player.rank === null ? 'current' : ''} ${player.rank ? 'ranked' : ''}`}><span className="player-swatch" style={{ backgroundColor: info.hex }} /><span className="player-name">{player.name}<small>{player.rank ? `${player.rank}${player.rank === 1 ? 'st' : player.rank === 2 ? 'nd' : 'th'} place` : `${player.tokens.filter((token) => token === 56).length}/4 home`}</small></span>{index === currentIdx && !player.rank && <span className="turn-dot" aria-label="Current turn" />}</div> })}</div>{rankings.length > 0 && <div className="rank-strip">{rankings.map((rank) => <span key={rank.color}>{rank.rank}. {rank.name}</span>)}</div>}</aside>
+}
