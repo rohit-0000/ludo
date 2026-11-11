@@ -11,7 +11,12 @@ export default function SetupScreen({ onStart }) {
   const changeCount = (nextCount) => {
     setCount(nextCount)
     if (nextCount === 4) setSelected([...TURN_ORDER])
-    if (nextCount === 2 && !OPPOSITE_PAIRS.some((pair) => pair.every((color) => selected.includes(color)))) setSelected(['red', 'yellow'])
+    if (nextCount === 2) {
+      const pair = OPPOSITE_PAIRS.find((candidate) =>
+        candidate.every((color) => selected.includes(color))
+      )
+      setSelected(pair || ['red', 'yellow'])
+    }
     if (nextCount === 3) setSelected(TURN_ORDER.slice(0, 3))
   }
 
